@@ -73,8 +73,6 @@ button {
     color: #ffffff;
     background: #1875E8;
     border: none;
-    width: 50%;
-    align-self: center;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -135,6 +133,7 @@ ul li button:hover {
     margin-top: 20px;
     color: #00FF7F;
 }
+
 
 @media (max-width: 768px) {
     .container {
