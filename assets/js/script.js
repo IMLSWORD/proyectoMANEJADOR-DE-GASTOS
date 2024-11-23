@@ -2,6 +2,21 @@ let listasNombresGastos = [];
 let listasValoressGastos = [];
 let listasDescripcionesGastos = [];
 
+function cargarDatosDeStorage() {
+  // Recupera los datos almacenados en LocalStorage
+  const nombresGastos = localStorage.getItem("nombresGastos");
+  const valoresGastos = localStorage.getItem("valoresGastos");
+  const descripcionesGastos = localStorage.getItem("descripcionesGastos");
+
+  if (nombresGastos && valoresGastos && descripcionesGastos) {
+    listasNombresGastos = JSON.parse(nombresGastos);
+    listasValoressGastos = JSON.parse(valoresGastos);
+    listasDescripcionesGastos = JSON.parse(descripcionesGastos);
+  }
+
+  actualizarListaDeGastos();
+}
+
 function clickBoton() {
   const nombreGasto = document.getElementById("nombreGasto").value;
   const valorGasto = Number(document.getElementById("valorGasto").value);
@@ -14,6 +29,10 @@ function clickBoton() {
   listasNombresGastos.push(nombreGasto);
   listasValoressGastos.push(valorGasto);
   listasDescripcionesGastos.push(descripcionGasto);
+
+  localStorage.setItem("nombresGastos", JSON.stringify(listasNombresGastos));
+  localStorage.setItem("valoresGastos", JSON.stringify(listasValoressGastos));
+  localStorage.setItem("descripcionesGastos", JSON.stringify(listasDescripcionesGastos));
 
   actualizarListaDeGastos();
 }
@@ -54,6 +73,12 @@ function eliminarGasto(posicion) {
   listasNombresGastos.splice(posicion, 1);
   listasValoressGastos.splice(posicion, 1);
   listasDescripcionesGastos.splice(posicion, 1);
+
+
+  localStorage.setItem("nombresGastos", JSON.stringify(listasNombresGastos));
+  localStorage.setItem("valoresGastos", JSON.stringify(listasValoressGastos));
+  localStorage.setItem("descripcionesGastos", JSON.stringify(listasDescripcionesGastos));
+
   actualizarListaDeGastos();
 }
 
@@ -77,8 +102,18 @@ function modificarGasto(posicion) {
     listasNombresGastos[posicion] = nuevoNombre;
     listasValoressGastos[posicion] = nuevoValor;
     listasDescripcionesGastos[posicion] = nuevaDescripcion;
+
+ 
+    localStorage.setItem("nombresGastos", JSON.stringify(listasNombresGastos));
+    localStorage.setItem("valoresGastos", JSON.stringify(listasValoressGastos));
+    localStorage.setItem("descripcionesGastos", JSON.stringify(listasDescripcionesGastos));
+
     actualizarListaDeGastos();
   } else {
     alert("❌ Error: No se pudo modificar el gasto. Asegúrate de ingresar valores válidos.");
   }
 }
+
+
+
+window.onload = cargarDatosDeStorage;
